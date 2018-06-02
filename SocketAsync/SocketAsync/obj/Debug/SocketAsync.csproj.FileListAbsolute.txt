@@ -1,0 +1,13 @@
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\bin\Debug\SocketAsync.exe.config
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\bin\Debug\SocketAsync.exe
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\bin\Debug\SocketAsync.pdb
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.csprojResolveAssemblyReference.cache
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.Form1.resources
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.Properties.Resources.resources
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.csproj.GenerateResource.cache
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.csproj.CoreCompileInputs.cache
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.exe
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.pdb
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\bin\Debug\HaxtivitiezSocketAsync.dll
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\bin\Debug\HaxtivitiezSocketAsync.pdb
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.csproj.CopyComplete

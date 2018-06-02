@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocketAsync", "SocketAsync\SocketAsync.csproj", "{5ABF0B76-19A3-49E8-8370-8E44AE226761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HaxtivitiezSocketAsync", "HaxtivitiezSocketAsync\HaxtivitiezSocketAsync.csproj", "{A98B807B-E2D4-4866-B6B6-E12205CCE0D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5ABF0B76-19A3-49E8-8370-8E44AE226761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABF0B76-19A3-49E8-8370-8E44AE226761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ABF0B76-19A3-49E8-8370-8E44AE226761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ABF0B76-19A3-49E8-8370-8E44AE226761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A98B807B-E2D4-4866-B6B6-E12205CCE0D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98B807B-E2D4-4866-B6B6-E12205CCE0D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98B807B-E2D4-4866-B6B6-E12205CCE0D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98B807B-E2D4-4866-B6B6-E12205CCE0D2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D44BA27-764B-4DD4-8C81-7585BD48ABCF}
+	EndGlobalSection
+EndGlobal

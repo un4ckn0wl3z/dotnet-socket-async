@@ -1,0 +1,10 @@
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\bin\Debug\SocketAsyncClient.exe.config
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\bin\Debug\SocketAsyncClient.exe
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\bin\Debug\SocketAsyncClient.pdb
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\bin\Debug\HaxtivitiezSocketAsync.dll
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\bin\Debug\HaxtivitiezSocketAsync.pdb
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\obj\Debug\SocketAsyncClient.csprojResolveAssemblyReference.cache
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\obj\Debug\SocketAsyncClient.csproj.CoreCompileInputs.cache
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\obj\Debug\SocketAsyncClient.csproj.CopyComplete
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\obj\Debug\SocketAsyncClient.exe
+c:\users\un4ckn0wl3z-level99\source\repos\SocketAsyncClient\SocketAsyncClient\obj\Debug\SocketAsyncClient.pdb
