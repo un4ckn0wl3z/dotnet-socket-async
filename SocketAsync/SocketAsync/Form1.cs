@@ -18,6 +18,9 @@ namespace SocketAsync
         {
             InitializeComponent();
             mServer = new HaxtivitiezSocketServer();
+            mServer.RaiseClientConnectedEvent += HandleClientConnected;
+            mServer.RaiseTextReceivedEvent += HandleTextReceived;
+            mServer.RaiseClientDisconnectedEvent += HandleClientDisconnected;
         }
 
         private void btnAcceptIncomingAsync_Click(object sender, EventArgs e)
@@ -43,6 +46,36 @@ namespace SocketAsync
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             mServer.StopServer();
+        }
+
+
+        void HandleClientConnected(Object sender, ClientConnectedEventArgs ccea)
+        {
+            txtConsole.AppendText(string.Format("{0} - New Client connected {1}{2}",DateTime.Now,ccea.NewClient,Environment.NewLine));
+        }
+
+        void HandleTextReceived(Object sender, TextReceivedEventArgs trea) {
+            txtConsole.AppendText(string.Format("{0} - Received from {1}: {2}{3}", DateTime.Now, trea.WhoTheFuckClientSentThisText.Trim(), trea.TextReceived.Trim(), Environment.NewLine));
+
+        }
+
+
+        void HandleClientDisconnected(object sender, ConnectionDisconnectedEventArgs cdea)
+        {
+            if (!txtConsole.IsDisposed)
+            {
+                txtConsole.AppendText(string.Format("{0} - Client Disconnected: {1}\r\n",
+                    DateTime.Now, cdea.DisconnectedPeer));
+            }
+        }
+
+
+
+
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -13,6 +13,9 @@ namespace SocketAsyncClient
         static void Main(string[] args)
         {
             HaxtivitiezSocketAsyncClient client = new HaxtivitiezSocketAsyncClient();
+            client.RaiseTextReceivedEvent += HandleTextReceived;
+            client.RaiseServerDisconnected += HandleServerDisconnected;
+            client.RaiseServerConnected += HandleServerConnected;
             Console.WriteLine("**** Welcome to Socket Client Starter ****");
             Console.WriteLine("Please Type a Valid Server IP Address and Press ENTER: ");
             string strIPAddress = Console.ReadLine();
@@ -46,6 +49,33 @@ namespace SocketAsyncClient
             } while (usrInput != "<EXIT>");
 
 
+        }
+
+        private static void HandleTextReceived(Object sender, TextReceivedEventArgs trea)
+        {
+            Console.WriteLine(string.Format("{0} - Received: {1}{2}",DateTime.Now,trea.TextReceived,Environment.NewLine));
+        }
+
+        private static void HandleServerDisconnected(object sender, ConnectionDisconnectedEventArgs cdea)
+        {
+            Console.WriteLine(
+                string.Format(
+                    "{0} - Disconnected from server: {1}{2}",
+                    DateTime.Now,
+                    cdea.DisconnectedPeer,
+                    Environment.NewLine));
+            System.Console.ReadLine();
+            Environment.Exit(1);
+        }
+
+        private static void HandleServerConnected(object sender, ConnectionDisconnectedEventArgs cdea)
+        {
+            Console.WriteLine(
+                string.Format(
+                    "{0} - Connected to server: {1}{2}",
+                    DateTime.Now,
+                    cdea.DisconnectedPeer,
+                    Environment.NewLine));
         }
     }
 }
