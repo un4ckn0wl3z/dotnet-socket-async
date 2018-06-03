@@ -16,6 +16,11 @@ namespace HaxtivitiezSocketAsync
         TcpClient mClient;
 
 
+        public EventHandler<TextReceivedEventArgs> RaiseTextReceivedEvent;
+        public EventHandler<ConnectionDisconnectedEventArgs> RaiseServerDisconnected;
+        public EventHandler<ConnectionDisconnectedEventArgs> RaiseServerConnected;
+
+
         public HaxtivitiezSocketAsyncClient()
         {
             mClient = null;
@@ -50,6 +55,35 @@ namespace HaxtivitiezSocketAsync
             mServerIPAddress = ipaddr;
             return true;
         }
+
+
+        public virtual void OnRaiseTextReceivedEvent(TextReceivedEventArgs trea)
+        {
+            EventHandler<TextReceivedEventArgs> handler = RaiseTextReceivedEvent;
+            if (handler != null)
+            {
+                handler(this, trea);
+            }
+        }
+
+        protected virtual void OnRaisePeerDisconnectedEvent(ConnectionDisconnectedEventArgs pdea)
+        {
+            EventHandler<ConnectionDisconnectedEventArgs> handler = RaiseServerDisconnected;
+            if (handler != null)
+            {
+                handler(this, pdea);
+            }
+        }
+
+        protected virtual void OnRaisePeerConnectedEvent(ConnectionDisconnectedEventArgs pdea)
+        {
+            EventHandler<ConnectionDisconnectedEventArgs> handler = RaiseServerConnected;
+            if (handler != null)
+            {
+                handler(this, pdea);
+            }
+        }
+
 
         public bool SetPortNumber(string _ServerPort) {
             int portNumber = 0;
@@ -109,6 +143,8 @@ namespace HaxtivitiezSocketAsync
                 await mClient.ConnectAsync(mServerIPAddress,mServerPort);
                 Console.WriteLine(string.Format("Connected to server IP/Port: {0}:{1}", mServerIPAddress.ToString(),mServerPort));
 
+                RaiseServerConnected(this, new ConnectionDisconnectedEventArgs(mClient.Client.RemoteEndPoint.ToString()));
+
                 ReadDataAsync(mClient);
             }
             catch (Exception excp)
@@ -130,12 +166,15 @@ namespace HaxtivitiezSocketAsync
                 {
                     readByteCount = await clientStreamReader.ReadAsync(buff, 0, buff.Length);
                     if (readByteCount<=0) {
+                        OnRaisePeerDisconnectedEvent(new ConnectionDisconnectedEventArgs(mClient.Client.RemoteEndPoint.ToString()));
                         Console.WriteLine("Disconnected from server");
                         mClient.Close();
                         break;
 
                     }
                     Console.WriteLine(string.Format("Received bytes: {0} - message: {1}",readByteCount,new string(buff)));
+
+                    OnRaiseTextReceivedEvent(new TextReceivedEventArgs(mClient.Client.RemoteEndPoint.ToString(), new string(buff)));
 
                     Array.Clear(buff,0, buff.Length);
                     //readByteCount = 0;

@@ -19,6 +19,11 @@ namespace HaxtivitiezSocketAsync
 
         List<TcpClient> mClients;
 
+        public EventHandler<ClientConnectedEventArgs> RaiseClientConnectedEvent;
+        public EventHandler<TextReceivedEventArgs> RaiseTextReceivedEvent;
+        public EventHandler<ConnectionDisconnectedEventArgs> RaiseClientDisconnectedEvent;
+
+
         public bool KeepRunning {
             get;
             set;
@@ -26,6 +31,37 @@ namespace HaxtivitiezSocketAsync
 
         public HaxtivitiezSocketServer() {
             mClients = new List<TcpClient>();
+        }
+
+        protected virtual void OnRaiseClientConnectedEvent(ClientConnectedEventArgs e)
+        {
+            EventHandler<ClientConnectedEventArgs> handler = RaiseClientConnectedEvent;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+
+        }
+
+        protected virtual void OnRaiseTextReceivedEvent(TextReceivedEventArgs trea)
+        {
+            EventHandler<TextReceivedEventArgs> handler = RaiseTextReceivedEvent;
+            if (handler != null)
+            {
+                handler(this, trea);
+            }
+
+        }
+
+
+        protected virtual void OnRaiseClientDisconnectedEvent(ConnectionDisconnectedEventArgs cdea)
+        {
+            EventHandler<ConnectionDisconnectedEventArgs> handler = RaiseClientDisconnectedEvent;
+
+            if (handler != null)
+            {
+                handler(this, cdea);
+            }
         }
 
         public async void StartListeningForIncomingConnection(IPAddress ipaddr = null, int port = 23000)
@@ -61,6 +97,10 @@ namespace HaxtivitiezSocketAsync
                     Debug.WriteLine(string.Format("Client connected successfully, count {0} - {1}", mClients.Count, returnByAccept.Client.RemoteEndPoint));
 
                     TakeCareOfClientListen(returnByAccept);
+
+                    ClientConnectedEventArgs eaClientConnected;
+                    eaClientConnected = new ClientConnectedEventArgs(returnByAccept.Client.RemoteEndPoint.ToString());
+                    OnRaiseClientConnectedEvent(eaClientConnected);
                 }
             }
             catch (Exception exp) {
@@ -99,6 +139,7 @@ namespace HaxtivitiezSocketAsync
         {
             NetworkStream stream = null;
             StreamReader reader = null;
+            string clientEndPoint = paramClient.Client.RemoteEndPoint.ToString();
 
             try
             {
@@ -112,17 +153,25 @@ namespace HaxtivitiezSocketAsync
                     Debug.WriteLine("RETURNED: "+ nRet);
 
                     if (nRet == 0) {
+                        OnRaiseClientDisconnectedEvent( new ConnectionDisconnectedEventArgs(clientEndPoint));
                         RemoveClient(paramClient);
                         Debug.WriteLine("Socket disconnected");
                         break;
                     }
 
                     string recvText = new string(buff);
-                    Debug.WriteLine("RECEIVED: "+ recvText);
+                    Debug.WriteLine("*** RECEIVED: "+ recvText.Trim());
+
+                    OnRaiseTextReceivedEvent(new TextReceivedEventArgs(
+                        paramClient.Client.RemoteEndPoint.ToString(),
+                        recvText.Trim()
+                        ));
+
                     Array.Clear(buff,0,buff.Length);
                 }
             }
             catch(Exception exp) {
+                OnRaiseClientDisconnectedEvent(new ConnectionDisconnectedEventArgs(clientEndPoint));
                 RemoveClient(paramClient);
                 Debug.WriteLine(exp.ToString());
             }
