@@ -11,3 +11,15 @@ c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\Sock
 c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\bin\Debug\HaxtivitiezSocketAsync.dll
 c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\bin\Debug\HaxtivitiezSocketAsync.pdb
 c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\SocketAsync\obj\Debug\SocketAsync.csproj.CopyComplete
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\bin\Debug\SocketAsync.exe.config
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\bin\Debug\SocketAsync.exe
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\bin\Debug\SocketAsync.pdb
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\bin\Debug\HaxtivitiezSocketAsync.dll
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\bin\Debug\HaxtivitiezSocketAsync.pdb
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\obj\Debug\SocketAsync.csprojResolveAssemblyReference.cache
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\obj\Debug\SocketAsync.Form1.resources
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\obj\Debug\SocketAsync.Properties.Resources.resources
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\obj\Debug\SocketAsync.csproj.GenerateResource.Cache
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\obj\Debug\SocketAsync.csproj.CoreCompileInputs.cache
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\obj\Debug\SocketAsync.exe
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\SocketAsync\obj\Debug\SocketAsync.pdb

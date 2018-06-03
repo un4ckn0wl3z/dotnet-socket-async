@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,11 +27,7 @@ namespace SocketAsync
         private void btnAcceptIncomingAsync_Click(object sender, EventArgs e)
         {
             mServer.StartListeningForIncomingConnection();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            MessageBox.Show("Started Server");
         }
 
         private void btnSendMessageToClient_Click(object sender, EventArgs e)

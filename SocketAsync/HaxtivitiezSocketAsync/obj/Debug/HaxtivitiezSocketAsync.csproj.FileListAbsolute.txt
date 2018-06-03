@@ -4,3 +4,9 @@ c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\HaxtivitiezSocketAsync\obj
 c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\HaxtivitiezSocketAsync\obj\Debug\HaxtivitiezSocketAsync.csproj.CoreCompileInputs.cache
 c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\HaxtivitiezSocketAsync\obj\Debug\HaxtivitiezSocketAsync.dll
 c:\users\un4ckn0wl3z-level99\source\repos\SocketAsync\HaxtivitiezSocketAsync\obj\Debug\HaxtivitiezSocketAsync.pdb
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\HaxtivitiezSocketAsync\bin\Debug\HaxtivitiezSocketAsync.dll
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\HaxtivitiezSocketAsync\bin\Debug\HaxtivitiezSocketAsync.pdb
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\HaxtivitiezSocketAsync\obj\Debug\HaxtivitiezSocketAsync.csproj.CoreCompileInputs.cache
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\HaxtivitiezSocketAsync\obj\Debug\HaxtivitiezSocketAsync.dll
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\HaxtivitiezSocketAsync\obj\Debug\HaxtivitiezSocketAsync.pdb
+Z:\MyWork\Dotnet\Windows Form\dotnet-socket-async\SocketAsync\HaxtivitiezSocketAsync\obj\Debug\HaxtivitiezSocketAsync.csprojResolveAssemblyReference.cache
