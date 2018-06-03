@@ -23,6 +23,18 @@ namespace SocketAsyncClient
             Console.WriteLine("Please Supply a Valid Port Number 0 - 65535 and Press ENTER: ");
             string strPort = Console.ReadLine();
 
+
+            if (strIPAddress.StartsWith("<HOST>"))
+            {
+                strIPAddress = strIPAddress.Replace("<HOST>",string.Empty);
+                strIPAddress = Convert.ToString(HaxtivitiezSocketAsyncClient.ResolveHostNameToIPAddress(strIPAddress));
+            }
+
+            if (string.IsNullOrEmpty(strIPAddress)) {
+                Console.WriteLine("No IP Address Supplied...");
+                Environment.Exit(0);
+            }
+
             if (!client.SetServerIPAddress(strIPAddress) || !client.SetPortNumber(strPort))
             {
                 Console.WriteLine(string.Format("Wrong IP Address or port number supplied - {0}:{1} \n Press any key to exit...", strIPAddress, strPort));

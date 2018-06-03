@@ -56,6 +56,27 @@ namespace HaxtivitiezSocketAsync
             return true;
         }
 
+        public static object ResolveHostNameToIPAddress(string strHostName)
+        {
+            IPAddress[] retAddr = null;
+
+            try
+            {
+                retAddr = Dns.GetHostAddresses(strHostName);
+
+                foreach (IPAddress ip in retAddr) {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork) {
+                        return retAddr;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
 
         public virtual void OnRaiseTextReceivedEvent(TextReceivedEventArgs trea)
         {
