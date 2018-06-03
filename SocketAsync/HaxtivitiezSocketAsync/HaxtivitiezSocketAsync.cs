@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace HaxtivitiezSocketAsync
 {
@@ -14,26 +12,25 @@ namespace HaxtivitiezSocketAsync
     {
         IPAddress mIP;
         int mPort;
-
         TcpListener mTcpListener;
 
-        List<TcpClient> mClients;
-
+        public List<TcpClient> mClients;
         public EventHandler<ClientConnectedEventArgs> RaiseClientConnectedEvent;
         public EventHandler<TextReceivedEventArgs> RaiseTextReceivedEvent;
         public EventHandler<ConnectionDisconnectedEventArgs> RaiseClientDisconnectedEvent;
 
-
-        public bool KeepRunning {
+        public bool KeepRunning
+        {
             get;
             set;
         }
 
-        public HaxtivitiezSocketServer() {
+        public HaxtivitiezSocketServer()
+        {
             mClients = new List<TcpClient>();
         }
 
-        protected virtual void OnRaiseClientConnectedEvent(ClientConnectedEventArgs e)
+        public virtual void OnRaiseClientConnectedEvent(ClientConnectedEventArgs e)
         {
             EventHandler<ClientConnectedEventArgs> handler = RaiseClientConnectedEvent;
             if (handler != null)
@@ -43,7 +40,7 @@ namespace HaxtivitiezSocketAsync
 
         }
 
-        protected virtual void OnRaiseTextReceivedEvent(TextReceivedEventArgs trea)
+        public virtual void OnRaiseTextReceivedEvent(TextReceivedEventArgs trea)
         {
             EventHandler<TextReceivedEventArgs> handler = RaiseTextReceivedEvent;
             if (handler != null)
@@ -53,8 +50,7 @@ namespace HaxtivitiezSocketAsync
 
         }
 
-
-        protected virtual void OnRaiseClientDisconnectedEvent(ConnectionDisconnectedEventArgs cdea)
+        public virtual void OnRaiseClientDisconnectedEvent(ConnectionDisconnectedEventArgs cdea)
         {
             EventHandler<ConnectionDisconnectedEventArgs> handler = RaiseClientDisconnectedEvent;
 
@@ -79,9 +75,9 @@ namespace HaxtivitiezSocketAsync
             mIP = ipaddr;
             mPort = port;
 
-            Debug.WriteLine(string.Format("IP Address: {0} - Port: {1}",mIP.ToString(),mPort));
+            Debug.WriteLine(string.Format("IP Address: {0} - Port: {1}", mIP.ToString(), mPort));
 
-            mTcpListener = new TcpListener(mIP,mPort);
+            mTcpListener = new TcpListener(mIP, mPort);
 
             try
             {
@@ -89,25 +85,28 @@ namespace HaxtivitiezSocketAsync
 
                 KeepRunning = true;
 
-                while (KeepRunning) {
+                while (KeepRunning)
+                {
                     var returnByAccept = await mTcpListener.AcceptTcpClientAsync();
 
                     mClients.Add(returnByAccept);
 
                     Debug.WriteLine(string.Format("Client connected successfully, count {0} - {1}", mClients.Count, returnByAccept.Client.RemoteEndPoint));
 
-                    TakeCareOfClientListen(returnByAccept);
+                    HandleClientConnection handleConnection = new HandleClientConnection(socketServer: this, paramClient: returnByAccept);
+                    handleConnection.TakeCareOfClientListen();
 
                     ClientConnectedEventArgs eaClientConnected;
                     eaClientConnected = new ClientConnectedEventArgs(returnByAccept.Client.RemoteEndPoint.ToString());
                     OnRaiseClientConnectedEvent(eaClientConnected);
                 }
             }
-            catch (Exception exp) {
+            catch (Exception exp)
+            {
                 Debug.WriteLine(exp.ToString());
             }
 
-        
+
 
         }
 
@@ -115,18 +114,19 @@ namespace HaxtivitiezSocketAsync
         {
             try
             {
-                if (mTcpListener!=null) {
+                if (mTcpListener != null)
+                {
                     mTcpListener.Stop();
                 }
 
                 foreach (TcpClient c in mClients)
                 {
-                    c.Close();
+                    c.Dispose();
                 }
 
                 mClients.Clear();
 
-                
+
 
             }
             catch (Exception excp)
@@ -135,7 +135,52 @@ namespace HaxtivitiezSocketAsync
             }
         }
 
-        private async void TakeCareOfClientListen(TcpClient paramClient)
+        public async void SendToAll(string leMessage)
+        {
+            if (string.IsNullOrEmpty(leMessage))
+            {
+                return;
+            }
+
+            try
+            {
+                string message = leMessage.Trim();
+                OnRaiseTextReceivedEvent(new TextReceivedEventArgs("Administrtor", message));
+                byte[] buffMessage = Encoding.ASCII.GetBytes(message);
+                foreach (TcpClient c in mClients)
+                {
+                    await c.GetStream().WriteAsync(buffMessage, 0, buffMessage.Length);
+                    Debug.WriteLine("BROASCAT TO : " + c.Client.RemoteEndPoint);
+                }
+
+            }
+            catch (Exception exp)
+            {
+                Debug.WriteLine(exp.ToString());
+            }
+        }
+
+        public void RemoveClient(TcpClient paramClient)
+        {
+            if (mClients.Contains(paramClient))
+            {
+                mClients.Remove(paramClient);
+                Debug.WriteLine(string.Format("Client removed, count {0}", mClients.Count));
+
+            }
+        }
+    }
+
+    public class HandleClientConnection
+    {
+        private readonly TcpClient paramClient;
+        private readonly HaxtivitiezSocketServer socketServer;
+        public HandleClientConnection(HaxtivitiezSocketServer socketServer, TcpClient paramClient)
+        {
+            this.socketServer = socketServer;
+            this.paramClient = paramClient;
+        }
+        public async void TakeCareOfClientListen()
         {
             NetworkStream stream = null;
             StreamReader reader = null;
@@ -147,67 +192,39 @@ namespace HaxtivitiezSocketAsync
                 reader = new StreamReader(stream);
 
                 char[] buff = new char[64];
-                while (KeepRunning) {
+                while (socketServer.KeepRunning)
+                {
                     Debug.WriteLine("*** Ready to read");
-                    int nRet = await reader.ReadAsync(buff,0,buff.Length);
-                    Debug.WriteLine("RETURNED: "+ nRet);
+                    int nRet = await reader.ReadAsync(buff, 0, buff.Length);
+                    Debug.WriteLine("RETURNED: " + nRet);
 
-                    if (nRet == 0) {
-                        OnRaiseClientDisconnectedEvent( new ConnectionDisconnectedEventArgs(clientEndPoint));
-                        RemoveClient(paramClient);
+                    if (nRet == 0)
+                    {
+                        socketServer.OnRaiseClientDisconnectedEvent(new ConnectionDisconnectedEventArgs(clientEndPoint));
+                        socketServer.RemoveClient(paramClient);
                         Debug.WriteLine("Socket disconnected");
                         break;
                     }
 
                     string recvText = new string(buff);
-                    Debug.WriteLine("*** RECEIVED: "+ recvText.Trim());
+                    Debug.WriteLine("*** RECEIVED: " + recvText.Trim());
 
-                    OnRaiseTextReceivedEvent(new TextReceivedEventArgs(
+                    socketServer.OnRaiseTextReceivedEvent(new TextReceivedEventArgs(
                         paramClient.Client.RemoteEndPoint.ToString(),
                         recvText.Trim()
                         ));
 
-                    Array.Clear(buff,0,buff.Length);
+                    Array.Clear(buff, 0, buff.Length);
                 }
-            }
-            catch(Exception exp) {
-                OnRaiseClientDisconnectedEvent(new ConnectionDisconnectedEventArgs(clientEndPoint));
-                RemoveClient(paramClient);
-                Debug.WriteLine(exp.ToString());
-            }
-
-
-        }
-
-        private void RemoveClient(TcpClient paramClient)
-        {
-            if (mClients.Contains(paramClient)) {
-                mClients.Remove(paramClient);
-                Debug.WriteLine(string.Format("Client removed, count {0}", mClients.Count));
-
-            }
-        }
-
-        public async void SendToAll(string leMessage)
-        {
-            if (string.IsNullOrEmpty(leMessage)) {
-                return;
-            }
-
-            try
-            {
-                byte[] buffMessage = Encoding.ASCII.GetBytes(leMessage);
-                foreach (TcpClient c in mClients)
-                {
-                    await c.GetStream().WriteAsync(buffMessage,0, buffMessage.Length);
-                    Debug.WriteLine("BROASCAT TO : "+c.Client.RemoteEndPoint);
-                }
-              
             }
             catch (Exception exp)
             {
+                socketServer.OnRaiseClientDisconnectedEvent(new ConnectionDisconnectedEventArgs(clientEndPoint));
+                socketServer.RemoveClient(paramClient);
                 Debug.WriteLine(exp.ToString());
             }
+
+
         }
     }
 }

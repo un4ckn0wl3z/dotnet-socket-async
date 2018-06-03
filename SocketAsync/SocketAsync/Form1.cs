@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HaxtivitiezSocketAsync;
 
@@ -26,11 +19,7 @@ namespace SocketAsync
         private void btnAcceptIncomingAsync_Click(object sender, EventArgs e)
         {
             mServer.StartListeningForIncomingConnection();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            MessageBox.Show("Started Server");
         }
 
         private void btnSendMessageToClient_Click(object sender, EventArgs e)
